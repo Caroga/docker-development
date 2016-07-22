@@ -6,13 +6,11 @@ mysql:
     MYSQL_ROOT_PASSWORD: root
     MYSQL_DATABASE: pass
   volumes:
-    - ${PWD}/config/mysql:/etc/mysql/conf.d
+    - ${PWD}/data/mysql:/etc/mysql/conf.d
 php:
   image: php:5.5-fpm
   ports:
     - 9000:9000
-  volumes-from:
-    - nginx
 nginx:
   image: nginx:latest
   ports:
@@ -24,12 +22,12 @@ adminer:
     image: clue/adminer
     ports:
       - 8081:80
-#elasticsearch:
-#  image: elasticsearch:latest
-#  command: elasticsearch -Des.network.bind_host=0.0.0.0 --http.cors.enabled=true --http.cors.allow-origin=*
-#  ports:
-#    - "9200:9200"
-#    - "9300:9300"
-#  volumes:
-#    - ${PWD}/config/elasticsearch/config:/usr/share/elasticsearch/config
-#    - ${PWD}/config/elasticsearch/data:/usr/share/elasticsearch/data
+elasticsearch:
+  image: elasticsearch:latest
+  command: elasticsearch -Des.network.bind_host=0.0.0.0 --http.cors.enabled=true --http.cors.allow-origin=*
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  volumes:
+    - ${PWD}/data/elasticsearch/config:/usr/share/elasticsearch/config
+    - ${PWD}/data/elasticsearch/data:/usr/share/elasticsearch/data
