@@ -11,6 +11,8 @@ php:
   image: php:5.5-fpm
   ports:
     - 9000:9000
+  volumes-from:
+    - nginx
 nginx:
   image: nginx:latest
   ports:
@@ -21,7 +23,7 @@ nginx:
 adminer:
     image: clue/adminer
     ports:
-      - 8080:80
+      - 8081:80
 #elasticsearch:
 #  image: elasticsearch:latest
 #  command: elasticsearch -Des.network.bind_host=0.0.0.0 --http.cors.enabled=true --http.cors.allow-origin=*
