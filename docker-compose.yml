@@ -1,3 +1,8 @@
+data:
+  build: data/dockerfiles/data
+  volumes:
+    - ${PWD}/www:/var/www
+
 mysql:
   image: mysql:latest
   ports:
@@ -7,10 +12,12 @@ mysql:
     MYSQL_DATABASE: pass
   volumes:
     - ${PWD}/data/mysql:/etc/mysql/conf.d
+
 php:
   image: php:5.5-fpm
   ports:
     - 9000:9000
+
 nginx:
   image: nginx:latest
   ports:
@@ -18,10 +25,12 @@ nginx:
     - 443:443
   volumes:
     - ${PWD}/www:/var/www
+
 adminer:
     image: clue/adminer
     ports:
       - 8081:80
+
 elasticsearch:
   image: elasticsearch:latest
   command: elasticsearch -Des.network.bind_host=0.0.0.0 --http.cors.enabled=true --http.cors.allow-origin=*
