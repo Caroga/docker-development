@@ -22,12 +22,6 @@ adminer:
     image: clue/adminer
     ports:
       - 8080:80
-    nginx:
-        build: docker/nginx
-        ports:
-          - 80:80
-        links:
-          - mysql
 #elasticsearch:
 #  image: elasticsearch:latest
 #  command: elasticsearch -Des.network.bind_host=0.0.0.0 --http.cors.enabled=true --http.cors.allow-origin=*
