@@ -14,17 +14,16 @@ mysql:
     - ${PWD}/data/mysql:/etc/mysql/conf.d
 
 php:
-  image: php:5.5-fpm
+  build: data/dockerfiles/php-fpm
   ports:
     - 9000:9000
 
 nginx:
-  image: nginx:latest
+  build: data/dockerfiles/nginx
   ports:
     - 80:80
     - 443:443
   volumes:
-    - ${PWD}/config/nginx:/ets/nginx/config/sites-enabled
     - ${PWD}/www:/var/www
 
 adminer:
