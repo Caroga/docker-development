@@ -1,0 +1,39 @@
+mysql:
+  image: mysql:latest
+  ports:
+    - 3306:3306
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: pass
+  volumes:
+    - ${PWD}/config/mysql:/etc/mysql/conf.d
+php:
+  image: php:5.5-fpm
+  ports:
+    - 9000:9000
+nginx:
+  image: nginx:latest
+  ports:
+    - 80:80
+    - 443:443
+  volumes:
+    - ${PWD}/www:/var/www
+adminer:
+    image: clue/adminer
+    ports:
+      - 8080:80
+    nginx:
+        build: docker/nginx
+        ports:
+          - 80:80
+        links:
+          - mysql
+#elasticsearch:
+#  image: elasticsearch:latest
+#  command: elasticsearch -Des.network.bind_host=0.0.0.0 --http.cors.enabled=true --http.cors.allow-origin=*
+#  ports:
+#    - "9200:9200"
+#    - "9300:9300"
+#  volumes:
+#    - ${PWD}/config/elasticsearch/config:/usr/share/elasticsearch/config
+#    - ${PWD}/config/elasticsearch/data:/usr/share/elasticsearch/data
