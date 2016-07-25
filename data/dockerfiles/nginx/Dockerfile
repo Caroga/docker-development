@@ -6,6 +6,8 @@ EXPOSE 80
 EXPOSE 443
 
 ADD nginx.conf /etc/nginx/
-ADD default /etc/nginx/conf.d/
+ADD default.conf /etc/nginx/conf.d/
+
+VOLUME /var/log/nginx
 
 CMD ["nginx"]
