@@ -9,7 +9,7 @@ mysql:
     - 3306:3306
   environment:
     MYSQL_ROOT_PASSWORD: root
-    MYSQL_DATABASE: pass
+    MYSQL_DATABASE: default
   volumes:
     - ${PWD}/data/mysql:/etc/mysql/conf.d
 
@@ -35,6 +35,8 @@ adminer:
     image: clue/adminer
     ports:
       - 8081:80
+    links:
+      - mysql
 
 elasticsearch:
   image: elasticsearch:latest
