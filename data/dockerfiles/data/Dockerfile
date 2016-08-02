@@ -1,3 +1,3 @@
-FROM phusion/baseimage:latest
+FROM tianon/true:latest
 
 VOLUME /var/www
