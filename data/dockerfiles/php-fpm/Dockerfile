@@ -4,6 +4,7 @@ MAINTAINER Ruben Aarts
 
 EXPOSE 9000
 
-VOLUME /var/www/html
+VOLUME /var/www
+WORKDIR /var/www
 
 CMD ["php-fpm"]
