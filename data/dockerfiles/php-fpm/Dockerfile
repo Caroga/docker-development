@@ -1,4 +1,4 @@
-FROM php:5.5-fpm
+FROM php:7.0.9-fpm
 
 MAINTAINER Ruben Aarts
 
