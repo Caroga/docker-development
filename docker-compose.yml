@@ -46,3 +46,11 @@
     volumes:
       - ${PWD}/data/elasticsearch/config:/usr/share/elasticsearch/config
       - ${PWD}/data/elasticsearch/data:/usr/share/elasticsearch/data
+
+  dns:
+    image: quay.io/jpillora/dnsmasq-gui:latest
+    volumes:
+      - ${PWD}/data/dockerfiles/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf
+    ports:
+      - "8080:8080"
+      - "172.17.0.1:53:53/udp"
