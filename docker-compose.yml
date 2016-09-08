@@ -1,22 +1,22 @@
   data:
-    build: data/dockerfiles/data
+    build: "data/dockerfiles/data"
     volumes:
-      - ${PWD}/www:/var/www
+      - "${PWD}/www:/var/www"
 
   mysql:
-    image: mysql:latest
+    image: "mysql:latest"
     ports:
-      - 3306:3306
+      - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: default
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "default"
     volumes:
-      - ${PWD}/data/mysql:/etc/mysql/conf.d
+      - "${PWD}/data/mysql:/etc/mysql/conf.d"
 
   php:
-    build: data/dockerfiles/php-fpm
+    build: "data/dockerfiles/php-fpm"
     ports:
-      - 9000:9000
+      - "9000:9000"
     volumes_from:
       - data
     links:
@@ -24,28 +24,36 @@
       - elasticsearch
 
   nginx:
-    build: data/dockerfiles/nginx
+    build: "data/dockerfiles/nginx"
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
     links:
-      - php
+      - "php"
     volumes_from:
-      - data
+      - "data"
 
   adminer:
-      image: clue/adminer
+      image: "clue/adminer"
       ports:
-        - 8081:80
+        - "8081:80"
       links:
-        - mysql
+        - "mysql"
 
   elasticsearch:
-    image: elasticsearch:latest
-    command: elasticsearch -Des.network.bind_host=0.0.0.0 --http.cors.enabled=true --http.cors.allow-origin=*
+    image: "elasticsearch:latest"
+    command: "elasticsearch -Des.network.bind_host=0.0.0.0 --http.cors.enabled=true --http.cors.allow-origin=*"
     ports:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - ${PWD}/data/elasticsearch/config:/usr/share/elasticsearch/config
-      - ${PWD}/data/elasticsearch/data:/usr/share/elasticsearch/data
+      - "${PWD}/data/elasticsearch/config:/usr/share/elasticsearch/config"
+      - "${PWD}/data/elasticsearch/data:/usr/share/elasticsearch/data"
+
+  dns:
+    image: "quay.io/jpillora/dnsmasq-gui:latest"
+    volumes:
+      - "${PWD}/data/dockerfiles/dnsmasq/dnsmasq.conf:/etc/dnsmasq.conf"
+    ports:
+      - "8082:8080"
+      - "172.17.0.1:53:53/udp"
