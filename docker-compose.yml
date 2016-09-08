@@ -19,6 +19,9 @@
       - 9000:9000
     volumes_from:
       - data
+    links:
+      - mysql
+      - elasticsearch
 
   nginx:
     build: data/dockerfiles/nginx
